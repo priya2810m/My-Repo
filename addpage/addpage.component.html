@@ -1,0 +1,98 @@
+<!-- <html>
+<body style="background-color:#e6e6e6;height:1200px;height:640px;">
+  <br>
+  <br>
+  <br>
+<form [formGroup]="AddForm" (ngSubmit)="onSubmit(AddForm)" style="background-color:#DEB887;padding-left:80px;width:200px;">
+  <h2>Add Leave</h2>
+  <table >
+    <tr>
+      <td>AceNo:</td>
+      <td>
+        <input type="text" class="form-control" formControlName="aceNo" /> </td>
+    </tr>
+    <tr>
+        <td>UserName:</td>
+        <td>
+          <input type="text" name="username" class="form-control" formControlName="userName" />
+        </td>
+      </tr>
+    <tr>
+      <td>Status</td>
+      <td>
+        <select required class="form-control" formControlName="status" >
+          <option value="" disabled selected>select</option>
+          <option value="communicated">Communicated</option>
+          <option value="nonCommunicated">Non-Communicated</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>StartDate:</td>
+      <td>
+        <input type="startdate" name="startdate" id="startDate" type="date" class="form-control" formControlName="startDate" />
+      </td>
+    </tr>
+    <tr>
+      <td>EndDate:</td>
+      <td>
+        <input type="enddate" name="enddate" id="endDate" type="date" class="form-control" formControlName="endDate" />
+      </td>
+    </tr>
+    <tr>
+      <td>
+      <input type="button" value="submit" style="color:darkgreen;"/>
+    </td>
+    </tr>
+  </table>
+</form>
+</body>
+</html> -->
+<html>
+<body style="background-color:#e6e6e6;height:1200px;height:640px;"> 
+  <br>
+  <br>
+  <br>
+<form [formGroup]="AddForm" (ngSubmit)="onSubmit(AddForm)" style="background-color:#DEB887;padding-left:80px;width:200px;">
+    <h2>Add Leave</h2>
+    <table>
+      <tr>
+        <td>AceNo:</td>
+        <td>
+          <input type="text" class="form-control" formControlName="aceNo" /> </td>
+      </tr>
+      <tr>
+        <td>UserName:</td>
+        <td>
+          <input type="text" name="username" class="form-control" formControlName="userName" />
+        </td>
+      </tr>
+      <tr>
+        <td>Status</td>
+        <td>
+          <select class="form-control" formControlName="status">
+            <option value="">Select</option>
+            <option value="communicated">Communicated</option>
+            <option value="nonCommunicated">Non-Communicated</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>StartDate:</td>
+        <td>
+          <input type="startdate" name="startdate" id="startDate" type="date" class="form-control" formControlName="startDate" />
+        </td>
+      </tr>
+      <tr>
+        <td>EndDate:</td>
+        <td>
+          <input type="enddate" name="enddate" id="endDate" type="date" class="form-control" formControlName="endDate" />
+        </td>
+      </tr>
+      <tr>
+        <input type="submit" name="submit" />
+      </tr>
+    </table>
+  </form>
+</body>
+  </html>
