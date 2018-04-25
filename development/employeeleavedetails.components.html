@@ -1,0 +1,36 @@
+
+<body style="background-color:#e6e6e6;padding-left:10cm;height:630px;">
+  <h2 style="padding-left:2cm;">Employee leave details</h2>
+  <br>
+  <br>
+  <table>
+      <tr >
+        <td>Name:</td>
+        <td *ngFor = "let employeeDetails of data">{{employeeDetails.userName}}</td>
+      </tr>
+      <tr>
+        <td>AceNo:</td>
+        <td *ngFor = "let employeeDetails of data">{{employeeDetails.aceNo}}</td>
+        </tr>
+      </table>
+  <br>
+  <form>
+  <table id="customers" >
+    <tr>
+      <th>Details</th>
+      <th>Communicated</th>
+      <th>Non-Communicated</th>
+    </tr>
+    <tr *ngFor = "let employeeDetails of data">
+        <td>{{employeeDetails.month}}</td>
+        <td>{{employeeDetails.communicated}}</td>
+        <td>{{employeeDetails.nonCommunicated}}</td>
+      </tr>
+      <tr>
+        <td>Total</td>
+        <!-- <td *ngFor = "let employeeDetails of data">{{employeeDetails.totalCommunicated}}</td>
+        <td *ngFor = "let employeeDetails of data">{{employeeDetails.totalNonCommunicated}}</td> -->
+      </tr>
+  </table>
+</form>
+</body>
