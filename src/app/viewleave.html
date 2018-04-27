@@ -1,0 +1,28 @@
+<body style="background-color:#e6e6e6;height:630px">
+  <h2 style="text-align:center;">Filter by year</h2>
+  <!-- <p><img [src]="/assets/images/img-LM.png"></p> -->
+<form [formGroup]="FilterForm" (ngSubmit)="onSubmit(FilterForm)">
+  <table>
+    <tr>
+      <td>AceNo</td>
+      <td><input type="text" class="form-control" formControlName="aceNo" placeholder="aceno"></td>
+    </tr>
+    <tr>
+      <td>Select Year:</td>
+      <td>
+      <select class="form-control" formControlName="year">
+            <option value="" placeholder="select" disabled>select</option>
+            <option value="2018-2019">2018-2019</option>
+            <option value="2017-2018">2017-2018</option>
+            <option value="2016-2015">2016-2015</option>
+            <option value="2015-2014">2016-2015</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td><input type="submit" value="Filter"></td>
+    </tr>
+  </table>
+<app-filteredlist [FilteredListModel]="filterArray"></app-filteredlist>
+</form>
+</body>
