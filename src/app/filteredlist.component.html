@@ -1,0 +1,21 @@
+<br>
+<br>
+<table>
+<tr >
+  <td>UserName:</td>
+  <td *ngFor= "let datas of FilteredListModel">{{datas.userName}}</td>
+</tr>
+</table>
+<br>
+<table id="customers"  style="border:dotted;">
+  <tr>
+    <th>StartDate</th>
+    <th>EndDate</th>
+    <th>Type</th>
+  </tr>
+  <tr *ngFor= "let datas of FilteredListModel">
+      <td>{{datas.startDate}}</td>
+      <td>{{datas.endDate}}</td>
+      <td>{{datas.status}}</td>
+    </tr>
+</table>
