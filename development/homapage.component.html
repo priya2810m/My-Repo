@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<body style="background-color:#e6e6e6;height:1200px;height:640px;">  
+  <br>
+  <br>
+  <!-- <form style="border:dotted;padding-left:15cm; width: 70%;height:640px;padding-left:10cm;background-color:#e6e6e6;"> -->
+      <form style="background-color:#DEB887;padding-left:80px;width:500px;height:400px">
+    <div>
+        <h3 style="padding-left:50px;">Leave Management System</h3>
+      <button style="float: right; text-align: center;">
+        <a routerLink="/viewleave">
+          <b>Filter</b>
+        </a>
+      </button>
+      <button  md-raised-button (click)="openDialog()" style="float: right; text-align: center;">
+         <b>Add</b>
+      </button>
+      </div>
+    <br>
+    <table id="customers">
+      <tr>
+        <th>Ace No</th>
+        <th>Name</th>
+        <th>Communicated</th>
+        <th>Non-Communicated</th>
+        <th>Last Updated</th>
+      </tr>
+      <tr *ngFor = "let employeeDetails of values" id="row">
+          <td>{{employeeDetails.aceNo}}</td>
+          <td><a [routerLink]="['/employeeleavedetails',employeeDetails.aceNo]">{{employeeDetails.userName}}</a></td>
+          <td>{{employeeDetails.communicatedCount}}</td>
+          <td>{{employeeDetails.noncommunicatedCount}}</td>
+          <td>{{employeeDetails.lastUpdated}}</td>
+        </tr> 
+    </table>
+  </form>
+</body>
+</html>
