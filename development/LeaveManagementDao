@@ -1,0 +1,142 @@
+package com.aspire.leavemanagement.dao;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.aspire.leavemanagement.model.LeaveManagement;
+import com.aspire.leavemanagement.model.LeaveManagementDTO;
+import com.aspire.leavemanagement.model.MonthsDTO;
+import com.aspire.leavemanagement.repository.LeaveManagementRepo;
+
+@Service
+public class LeaveManagementDao {
+	@Autowired
+	LeaveManagementRepo leaveManagementRepository;
+
+	/*
+	 * method to add leave details
+	 */
+	public void addLeave(LeaveManagement leaveManagement) {
+		DateFormat dateFormat = new SimpleDateFormat("MMMM");
+		DateFormat lastUpdated = new SimpleDateFormat("yyyy-MM-dd");
+		DateFormat month = new SimpleDateFormat("MM");
+		DateFormat year = new SimpleDateFormat("yyyy");
+		DateFormat day = new SimpleDateFormat("dd");
+		Date date = new Date();
+		System.out.println("dao");
+		Date sdate = leaveManagement.getStartDate();
+		Date edate = leaveManagement.getEndDate();
+		long count = (edate.getTime() - sdate.getTime()) / 86400000 + 1;
+		if (!dateFormat.format(sdate).equals(dateFormat.format(edate))) {
+			try {
+
+				Calendar calendar = Calendar.getInstance();
+				calendar.set(Integer.parseInt(year.format(sdate)), Integer.parseInt(month.format(sdate)) - 1, 1);
+				int daysInMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+				String newDate = Integer.parseInt(year.format(sdate)) + "-" + Integer.parseInt(month.format(sdate))
+						+ "-" + daysInMonth;
+				java.sql.Date d = new java.sql.Date(lastUpdated.parse(newDate).getTime());
+				leaveManagement.setEndDate(d);
+				int count1 = daysInMonth - Integer.parseInt(day.format(sdate))+1;
+				leaveManagement.setCount(count1);
+				leaveManagement.setMonth(dateFormat.format(sdate));
+				leaveManagement.setLastUpdated(lastUpdated.format(date));
+				leaveManagementRepository.save(leaveManagement);
+				LeaveManagement leaveManagement1 = new LeaveManagement();
+				leaveManagement1.setAceNo(leaveManagement.getAceNo());
+				leaveManagement1.setUserName(leaveManagement.getUserName());
+				leaveManagement1.setStatus(leaveManagement.getStatus());
+				java.sql.Date endDate = new java.sql.Date(edate.getTime());
+				leaveManagement1.setEndDate(endDate);
+				leaveManagement1.setMonth(dateFormat.format(edate));
+				leaveManagement1.setCount(((int) count - count1));
+				leaveManagement1.setLastUpdated(lastUpdated.format(date));
+				newDate = Integer.parseInt(year.format(edate)) + "-" + Integer.parseInt(month.format(edate)) + "-01";
+				java.sql.Date startDate = new java.sql.Date(lastUpdated.parse(newDate).getTime());
+				leaveManagement1.setStartDate(startDate);
+				leaveManagementRepository.save(leaveManagement1);
+			} catch (ParseException e) {
+				System.out.println(e.getMessage());
+			}
+
+		} else {
+			leaveManagement.setMonth(dateFormat.format(sdate));
+			leaveManagement.setLastUpdated(lastUpdated.format(date));
+			leaveManagement.setCount((int) count);
+			leaveManagementRepository.save(leaveManagement);
+		}
+	}
+
+	/*
+	 * get all the leave details from the table
+	 */
+	public List<LeaveManagementDTO> getAllLeaveDetails() {
+		List<LeaveManagementDTO> list = leaveManagementRepository.getLeaveDetails();
+		return list;
+	}
+
+	/*
+	 * set the month in a list
+	 */
+	public List<String> getMonths() {
+		List<String> months = new ArrayList<String>();
+		months.add("January");
+		months.add("February");
+		months.add("March");
+		months.add("April");
+		months.add("May");
+		months.add("June");
+		months.add("July");
+		months.add("August");
+		months.add("September");
+		months.add("October");
+		months.add("November");
+		months.add("December");
+		return months;
+	}
+
+	/*
+	 * get details based on aceNo
+	 */
+	public List<MonthsDTO> getByAceNo(String aceNo) {
+		List<MonthsDTO> leaveDetails = new ArrayList<>();
+		List<String> months = getMonths();
+		List<MonthsDTO> leaveDetail = leaveManagementRepository.getLeaveDetailsByAceNo(aceNo);
+		MonthsDTO dummy = null;
+		for (String month : months) {
+			for (MonthsDTO m : leaveDetail) {
+				if (month.equalsIgnoreCase(m.getMonth())) {
+					dummy = m;
+					break;
+				} else {
+					dummy = new MonthsDTO();
+					dummy.setMonth(month);
+					// dummy.setTotalCommunicated(155);
+					// dummy.setTotalNonCommunicated(255);
+				}
+			}
+			leaveDetails.add(dummy);
+		}
+	return leaveDetails;
+	}
+
+	/*
+	 * To get the filtered list based on the selected year from UI
+	 */
+	public List<LeaveManagement> getFilteredList(LeaveManagement leaveManagement) {
+		String aceNo = leaveManagement.getAceNo();
+		String year = leaveManagement.getYears();
+		String startYear = year.substring(0, 4);
+		String endYear = year.substring(5);
+		List<LeaveManagement> leaveManagement1 = leaveManagementRepository.getFilteredList(aceNo, startYear + "-__-__",
+				endYear + "-__-__");
+		return leaveManagement1;
+
+	}
+}
