@@ -1,0 +1,36 @@
+package com.aspire.leavemanagement.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.query.Procedure;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+import com.aspire.leavemanagement.model.LeaveManagement;
+import com.aspire.leavemanagement.model.LeaveManagementDTO;
+import com.aspire.leavemanagement.model.MonthsDTO;
+
+@Repository
+public interface LeaveManagementRepo extends JpaRepository<LeaveManagement, String> {
+
+	/*
+	 * query to get the leave details list from database
+	 */
+	@Query(name = "getLeaveDetails", nativeQuery = true)
+	List<LeaveManagementDTO> getLeaveDetails();
+	
+	/*
+	 * query to get the leave details from database using ace no
+	 */
+	@Query(name = "getLeaveDetailsByAceNo", nativeQuery = true)
+	List<MonthsDTO> getLeaveDetailsByAceNo(@Param("ACENO") String aceNo);
+
+	/*
+	 * query to get the filtered data from the database by passing year as parameter
+	 */
+	@Query(name = "getFilteredList",nativeQuery=true)
+	List<LeaveManagement> getFilteredList(@Param("aceNo") String aceNo, @Param("syear") String syear, @Param("eyear") String eyear);
+	
+}
