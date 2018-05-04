@@ -1,0 +1,52 @@
+<div>
+  <h2 md-dialog-title>Add Page</h2>
+  <hr>
+    <mat-dialog-content>
+     Insert Employee Leave details
+      <br>
+      <br>
+      <form [formGroup]="AddForm" (ngSubmit)="onSubmit(AddForm)" style="background-color:#DEB887;padding-left:80px;width:200px;">
+          <h2>Add Leave</h2>
+          <table>
+            <tr>
+              <td>AceNo:</td>
+              <td>
+                <input type="text" class="form-control" formControlName="aceNo" /> </td>
+            </tr>
+            <tr>
+              <td>Name:</td>
+              <td>
+                <input type="text" name="username" class="form-control" formControlName="userName" />
+              </td>
+            </tr>
+            <tr>
+              <td>Type</td>
+              <td>
+                <select class="form-control" formControlName="status">
+                  <option value="" disabled>Select</option>
+                  <option value="communicated">Communicated</option>
+                  <option value="nonCommunicated">Non-Communicated</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>StartDate:</td>
+              <td>
+                <input type="startdate" name="startdate" id="startDate" type="date" class="form-control" formControlName="startDate" />
+              </td>
+            </tr>
+            <tr>
+              <td>EndDate:</td>
+              <td>
+                <input type="enddate" name="enddate" id="endDate" type="date" class="form-control" formControlName="endDate" />
+              </td>
+            </tr>
+            <tr>
+              <input type="submit" name="submit" />
+            </tr>
+          </table>
+        </form>
+      </mat-dialog-content>
+      <hr>
+          <button type="button" md-raised-button (click)="dialogRef.close(true)">Close</button>
+    </div>
